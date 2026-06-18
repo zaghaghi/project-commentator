@@ -105,6 +105,9 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
+          # xcap (screen capture) Linux backends need PipeWire + SPA (bindgen
+          # via libclang), XCB/Xrandr (X11), and Wayland/EGL. project-spy's
+          # workflow omits these because it has no screen-capture dependency.
           sudo apt-get install -y \
             cmake \
             build-essential \
@@ -120,7 +123,15 @@ jobs:
             wget \
             dpkg-dev \
             fakeroot \
-            binutils
+            binutils \
+            libclang-dev \
+            libpipewire-0.3-dev \
+            libspa-0.2-dev \
+            libxcb1-dev \
+            libxrandr-dev \
+            libdbus-1-dev \
+            libwayland-dev \
+            libegl-dev
 
       - name: Install Node
         uses: actions/setup-node@v4
