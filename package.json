@@ -1,0 +1,15 @@
+{
+  "name": "project-commentator",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Tauri app that screenshots your screen every minute and has a local Gemma 4 model roast it.",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "web": "npm --prefix web run dev"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0"
+  }
+}
