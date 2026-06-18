@@ -131,7 +131,8 @@ jobs:
             libxrandr-dev \
             libdbus-1-dev \
             libwayland-dev \
-            libegl-dev
+            libegl-dev \
+            libgbm-dev
 
       - name: Install Node
         uses: actions/setup-node@v4
@@ -230,7 +231,11 @@ jobs:
     name: Upload installers to release
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
+    # Run even if some build matrix legs failed (fail-fast is false), so the
+    # installers produced by the successful OS jobs still get published. The
+    # download-artifact step only fetches artifacts that were actually uploaded
+    # (failed legs upload nothing). Skipped only if the run was cancelled.
+    if: ${{ !cancelled() && github.event_name == 'release' }}
     steps:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
